@@ -1,0 +1,75 @@
+package me.chenqu.imfinder;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.SimpleAdapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class QueryActivity extends AppCompatActivity {
+
+    GridView gridView = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_query);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+
+        gridView = (GridView) findViewById(R.id.gridView);
+        Bundle extra = getIntent().getExtras();
+        ArrayList<Map<String, String>> list = (ArrayList<Map<String, String>>) extra.get("list");
+        SimpleAdapter adapter = new SimpleAdapter(this, list, R.layout.query,
+                new String[]{"imagePath"}, new int[]{R.id.file});
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new ItemClickListener());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+}
+
+class ItemClickListener implements AdapterView.OnItemClickListener {
+
+    public void onItemClick(AdapterView<?> arg0,//The AdapterView where the click happened
+                            View arg1,//The view within the AdapterView that was clicked
+                            int arg2,//The position of the view in the adapter
+                            long arg3//The row id of the item that was clicked
+    ) {
+        //在本例中arg2=arg3
+        HashMap<String, String> item=(HashMap<String, String>) arg0.getItemAtPosition(arg2);
+        //QueryActivity.imagePath = item.get("imagePath");
+        Intent intent = new Intent(arg0.getContext(), PictureActivity.class);
+        String imagePath = item.get("imagePath");
+        imagePath = imagePath.substring(0, imagePath.length() - 6) + ".jpg";
+        intent.putExtra("imagePath", imagePath);
+        arg0.getContext().startActivity(intent);
+    }
+
+
+}
+

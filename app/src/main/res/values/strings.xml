@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ImFinder</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_query">查找结果</string>
+
+    <string name="title_activity_picture">PictureActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="action_search">搜索</string>
+    <string name="action_photo">拍照</string>
+    <string name="dialog_search">搜索</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_query">请输入关键字</string>
+    <string name="dialog_OK">好的</string>
+    <string name="dialog_tag">标签</string>
+
+</resources>
